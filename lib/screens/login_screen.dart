@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:productos_app/providers/login_form_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:productos_app/ui/input_decorations.dart';
 import 'package:productos_app/widgets/widgets.dart';
 
@@ -22,7 +24,10 @@ class LoginScreen extends StatelessWidget {
                   style: Theme.of(context).textTheme.headline4,
                 ),
                 const SizedBox(height: 30),
-                _LoginForm()
+                ChangeNotifierProvider(
+                  create: (_) => LoginFormProvider(),
+                  child: _LoginForm(),
+                )
               ],
             ),
           ),
@@ -38,17 +43,19 @@ class LoginScreen extends StatelessWidget {
 class _LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final loginForm = Provider.of<LoginFormProvider>(context);
     return Container(
       child: Form(
           autovalidateMode: AutovalidateMode.onUserInteraction,
+          key: loginForm.formKey,
           child: Column(
             children: [
-
               TextFormField(
                 autocorrect: false,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecorations.authInputDecoration(
                     hintText: 'email@example.com', labelText: 'Correo electrónico', prefixIcon: Icons.alternate_email_sharp),
+                onChanged: (value) => loginForm.email = value,
                 validator: (value) {
                   String pattern =
                       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
@@ -56,22 +63,17 @@ class _LoginForm extends StatelessWidget {
                   return regExp.hasMatch(value ?? '') ? null : 'El correo no es correcto.';
                 },
               ),
-
               const SizedBox(height: 30),
-
               TextFormField(
                 autocorrect: false,
                 obscureText: true,
                 decoration: InputDecorations.authInputDecoration(hintText: '****', labelText: 'Contraseña', prefixIcon: Icons.lock_clock_outlined),
+                onChanged: (value) => loginForm.password = value,
                 validator: (value) {
-                  return (value != null && value.length >= 6) 
-                  ? null
-                  : 'La contraseña debe de ser de 6 caracteres.';
+                  return (value != null && value.length >= 6) ? null : 'La contraseña debe de ser de 6 caracteres.';
                 },
               ),
-
               const SizedBox(height: 30),
-
               MaterialButton(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -83,10 +85,11 @@ class _LoginForm extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 15),
                   child: const Text('Ingresar', style: TextStyle(color: Colors.white)),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  if (!loginForm.isValidForm()) return;
+                  Navigator.pushReplacementNamed(context, 'home');
+                },
               ),
-
-              
             ],
           )),
     );
