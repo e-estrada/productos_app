@@ -10,11 +10,13 @@ class ProductsServices extends ChangeNotifier {
   bool isLoading = true;
 
   ProductsServices() {
-    this.loadProducts();
+    loadProducts();
   }
 
   // <List<ProductModel>>
-  Future loadProducts() async {
+  Future<List<ProductModel>> loadProducts() async {
+    isLoading = true;
+    notifyListeners();
     final url = Uri.https(_baseURL, 'products.json');
     final resp = await http.get(url);
     final Map<String, dynamic> productsMap = json.decode(resp.body);
@@ -23,6 +25,10 @@ class ProductsServices extends ChangeNotifier {
       tempProduct.id = key;
       products.add(tempProduct);
     });
-    print(products[0].name);
+
+    isLoading = false;
+    notifyListeners();
+
+    return products;
   }
 }
