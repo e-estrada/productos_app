@@ -9,7 +9,7 @@ class ProductsServices extends ChangeNotifier {
   final String _baseURL = 'flutter-varios-57a0a-default-rtdb.firebaseio.com';
   final List<ProductModel> products = [];
   bool isLoading = true;
-  bool isSaving = true;
+  bool isSaving = false;
   late ProductModel selectedProduct;
   File? newPictureFile;
 
