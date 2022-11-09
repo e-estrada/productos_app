@@ -34,7 +34,7 @@ class RegisterScreen extends StatelessWidget {
           const SizedBox(height: 50),
           TextButton(
             style: ButtonStyle(
-                overlayColor: MaterialStateProperty.all(Colors.indigo.withOpacity(0.1)), shape: MaterialStateProperty.all(StadiumBorder())),
+                overlayColor: MaterialStateProperty.all(Colors.indigo.withOpacity(0.1)), shape: MaterialStateProperty.all(const StadiumBorder())),
             onPressed: () => Navigator.pushReplacementNamed(context, 'login'),
             child: const Text(
               '¿Ya tienes una cuenta?',

@@ -35,7 +35,7 @@ class LoginScreen extends StatelessWidget {
           TextButton(
             style: ButtonStyle(
               overlayColor: MaterialStateProperty.all(Colors.indigo.withOpacity(0.1)),
-              shape: MaterialStateProperty.all(StadiumBorder())
+              shape: MaterialStateProperty.all(const StadiumBorder())
             ),
             onPressed: () => Navigator.pushReplacementNamed(context, 'register'), 
             child: const Text(
