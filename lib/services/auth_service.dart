@@ -7,6 +7,7 @@ class AuthService extends ChangeNotifier {
   final String _baseUrl = 'identitytoolkit.googleapis.com';
   final String _firebaseToke = 'AIzaSyCWr4Ym5by0GJQYfCihbHaboCDcElyTojY';
 
+  // Si retorna un String, es un error, si retorna un null, todo esta Ok.
   Future<String?> createUser(String email, String password) async {
     final Map<String, dynamic> authData = {'email': email, 'password': password};
 
@@ -14,7 +15,13 @@ class AuthService extends ChangeNotifier {
 
     final resp = await http.post(url, body: json.encode(authData));
     final Map<String, dynamic> respDecoded = json.decode(resp.body);
-    print(respDecoded);
+    if (respDecoded.containsKey('idToken')) {
+      //Token guardar storage
+      // return respDecoded['idToken'];
+      return null;
+    } else {
+      return respDecoded['error']['message'];
+    }
     return null;
   }
 }
