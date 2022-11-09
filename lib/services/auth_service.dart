@@ -24,4 +24,23 @@ class AuthService extends ChangeNotifier {
     }
     return null;
   }
+
+  // Si retorna un String, es un error, si retorna un null, todo esta Ok.
+  Future<String?> login(String email, String password) async {
+    final Map<String, dynamic> authData = {'email': email, 'password': password};
+
+    final url = Uri.https(_baseUrl, '/v1/accounts:signInWithPassword', {'key': _firebaseToke});
+
+    final resp = await http.post(url, body: json.encode(authData));
+    final Map<String, dynamic> respDecoded = json.decode(resp.body);
+    if (respDecoded.containsKey('idToken')) {
+      //Token guardar storage
+      // return respDecoded['idToken'];
+      return null;
+    } else {
+      return respDecoded['error']['message'];
+    }
+    return null;
+  }
+
 }
