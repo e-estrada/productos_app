@@ -53,7 +53,7 @@ class _ProductsScreenBody extends StatelessWidget {
                         onPressed: () async {
                           final ImagePicker picker = ImagePicker();
 
-                          final XFile? image = await picker.pickImage(source: ImageSource.gallery, imageQuality: 100);
+                          final XFile? image = await picker.pickImage(source: ImageSource.camera, imageQuality: 100);
                           if (image == null) {
                             return;
                           }
