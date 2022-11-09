@@ -1,11 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class AuthService extends ChangeNotifier {
   final String _baseUrl = 'identitytoolkit.googleapis.com';
   final String _firebaseToke = 'AIzaSyCWr4Ym5by0GJQYfCihbHaboCDcElyTojY';
+  final storage = const FlutterSecureStorage();
 
   // Si retorna un String, es un error, si retorna un null, todo esta Ok.
   Future<String?> createUser(String email, String password) async {
@@ -17,12 +19,11 @@ class AuthService extends ChangeNotifier {
     final Map<String, dynamic> respDecoded = json.decode(resp.body);
     if (respDecoded.containsKey('idToken')) {
       //Token guardar storage
-      // return respDecoded['idToken'];
+      await storage.write(key: 'token', value: respDecoded['idToken']);
       return null;
     } else {
       return respDecoded['error']['message'];
     }
-    return null;
   }
 
   // Si retorna un String, es un error, si retorna un null, todo esta Ok.
@@ -35,12 +36,15 @@ class AuthService extends ChangeNotifier {
     final Map<String, dynamic> respDecoded = json.decode(resp.body);
     if (respDecoded.containsKey('idToken')) {
       //Token guardar storage
-      // return respDecoded['idToken'];
+      await storage.write(key: 'token', value: respDecoded['idToken']);
       return null;
     } else {
       return respDecoded['error']['message'];
     }
-    return null;
   }
 
+  Future logout() async {
+    await storage.delete(key: 'token');
+    return;
+  }
 }
