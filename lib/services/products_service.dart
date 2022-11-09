@@ -84,8 +84,6 @@ class ProductsServices extends ChangeNotifier {
     final streamResponse = await imageUploadRequest.send();
     final response = await http.Response.fromStream(streamResponse);
     if (response.statusCode != 200 && response.statusCode != 201) {
-      print('Algo salio mal');
-      print(response.body);
       return null;
     }
 
