@@ -11,7 +11,7 @@ class AuthService extends ChangeNotifier {
 
   // Si retorna un String, es un error, si retorna un null, todo esta Ok.
   Future<String?> createUser(String email, String password) async {
-    final Map<String, dynamic> authData = {'email': email, 'password': password};
+    final Map<String, dynamic> authData = {'email': email, 'password': password, 'returnSecureToken': true};
 
     final url = Uri.https(_baseUrl, '/v1/accounts:signUp', {'key': _firebaseToke});
 
@@ -28,7 +28,7 @@ class AuthService extends ChangeNotifier {
 
   // Si retorna un String, es un error, si retorna un null, todo esta Ok.
   Future<String?> login(String email, String password) async {
-    final Map<String, dynamic> authData = {'email': email, 'password': password};
+    final Map<String, dynamic> authData = {'email': email, 'password': password, 'returnSecureToken': true};
 
     final url = Uri.https(_baseUrl, '/v1/accounts:signInWithPassword', {'key': _firebaseToke});
 
