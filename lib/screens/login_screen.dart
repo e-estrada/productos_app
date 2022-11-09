@@ -35,14 +35,12 @@ class LoginScreen extends StatelessWidget {
           const SizedBox(height: 50),
           TextButton(
             style: ButtonStyle(
-              overlayColor: MaterialStateProperty.all(Colors.indigo.withOpacity(0.1)),
-              shape: MaterialStateProperty.all(const StadiumBorder())
-            ),
-            onPressed: () => Navigator.pushReplacementNamed(context, 'register'), 
+                overlayColor: MaterialStateProperty.all(Colors.indigo.withOpacity(0.1)), shape: MaterialStateProperty.all(const StadiumBorder())),
+            onPressed: () => Navigator.pushReplacementNamed(context, 'register'),
             child: const Text(
-              'Crear una nueva cuenta.', 
+              'Crear una nueva cuenta.',
               style: TextStyle(fontSize: 18, color: Colors.black87),
-              ),
+            ),
           ),
           const SizedBox(height: 50),
         ],
@@ -104,7 +102,7 @@ class _LoginForm extends StatelessWidget {
                         Navigator.pushReplacementNamed(context, 'home');
                       } else {
                         // Mostrar error en pantalla
-                        print(errorMessage);
+                        NotificationsService.showSnackBar(errorMessage);
                       }
                       loginForm.isLoading = false;
                     },
