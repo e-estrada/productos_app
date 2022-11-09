@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:productos_app/ui/input_decorations.dart';
 import 'package:productos_app/widgets/widgets.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class LoginScreen extends StatelessWidget {
               children: [
                 const SizedBox(height: 10),
                 Text(
-                  'Login',
+                  'Registrar',
                   style: Theme.of(context).textTheme.headline4,
                 ),
                 const SizedBox(height: 30),
@@ -34,14 +34,12 @@ class LoginScreen extends StatelessWidget {
           const SizedBox(height: 50),
           TextButton(
             style: ButtonStyle(
-              overlayColor: MaterialStateProperty.all(Colors.indigo.withOpacity(0.1)),
-              shape: MaterialStateProperty.all(StadiumBorder())
-            ),
-            onPressed: () => Navigator.pushReplacementNamed(context, 'register'), 
+                overlayColor: MaterialStateProperty.all(Colors.indigo.withOpacity(0.1)), shape: MaterialStateProperty.all(StadiumBorder())),
+            onPressed: () => Navigator.pushReplacementNamed(context, 'login'),
             child: const Text(
-              'Crear una nueva cuenta.', 
+              '¿Ya tienes una cuenta?',
               style: TextStyle(fontSize: 18, color: Colors.black87),
-              ),
+            ),
           ),
           const SizedBox(height: 50),
         ],
@@ -103,7 +101,7 @@ class _LoginForm extends StatelessWidget {
                     },
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 15),
-                child: Text(loginForm.isLoading ? 'Por favor Espere ...' : 'Ingresar', style: const TextStyle(color: Colors.white)),
+                child: Text(loginForm.isLoading ? 'Por favor Espere ...' : 'Registrar', style: const TextStyle(color: Colors.white)),
               ),
             ),
           ],
